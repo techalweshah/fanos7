@@ -26,7 +26,7 @@ def get_day(day_id):
     return jsonify({"day": day[0]})
 
 @app.route("/sam", methods=["POST"])
-    return jsonify({"reply": "وعليكم السلام"})
+    return jsonify({"reply": "وعليكم السلام"}), 201
 
 
 @app.route("/", methods=["POST"])

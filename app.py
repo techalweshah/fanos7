@@ -31,7 +31,7 @@ def get_day(day_id):
 
 @app.route("/", methods=["POST"])
 def post_days():
-    return jsonify({"success": True}), 201
+    return jsonify({"reply": "sam"}), 201
 
 
 if __name__ == "__main__":

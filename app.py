@@ -155,8 +155,8 @@ def sms_reply():
 
     # Save the incoming message to the database
     cursor.execute(
-        'INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
-        (conversation_id, incoming_msg, False)
+        'INSERT INTO SMSMessages (UserID, MessageText, IsIncoming) VALUES (?, ?, ?)',
+        (user_id, incoming_msg, False)
     )
     conn.commit()
 

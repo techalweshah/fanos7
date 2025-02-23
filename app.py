@@ -171,13 +171,15 @@ def sms_reply():
     conn.commit()
 
     # Send the AI response via SMS
-    send_sms(sender_phone, ai_response)
+ #   send_sms(sender_phone, ai_response)
 
     # Respond to Twilio
-    response = MessagingResponse()
-    response.message(ai_response)
+  #  response = MessagingResponse()
+  #  response.message(ai_response)
 
     conn.close()
+
+    return jsonify({"reply": incoming_msg}), 201
     return str(response)
 
 # Function to generate AI response

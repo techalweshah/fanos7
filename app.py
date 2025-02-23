@@ -56,54 +56,51 @@ def connect_to_db():
 
 @app.route('/sms', methods=['GET'])
 def sms_reply():
-    # Get incoming message details
-    incoming_msg = request.form.get('Body')
-    sender_phone = request.form.get('From')
-    conn = connect_to_db()
-    cursor = conn.cursor()
-    cursor.execute('SELECT UserID FROM Users WHERE PhoneNumber = ?', (sender_phone,))
-    user = cursor.fetchone()
+     incoming_msg = request.form.get('Body')
+     sender_phone = request.form.get('From')
+     conn = connect_to_db()
+     cursor = conn.cursor()
+     cursor.execute('SELECT UserID FROM Users WHERE PhoneNumber = ?', (sender_phone,))
+     user = cursor.fetchone()
 
-    if not user:
+     if not user:
         # Create a new user
-        cursor.execute('INSERT INTO Users (PhoneNumber) VALUES (?)', (sender_phone,))
-        conn.commit()
-        user_id = cursor.lastrowid
-    else:
-        user_id = user['UserID'] 
+         cursor.execute('INSERT INTO Users (PhoneNumber) VALUES (?)', (sender_phone,))
+         conn.commit()
+         user_id = cursor.lastrowid
+     else:
+         user_id = user['UserID'] 
 
     # Create a new conversation if it doesn't exist
-    cursor.execute('SELECT ConversationID FROM Conversations WHERE UserID = ?', (user_id,))
-    conversation = cursor.fetchone() 
+     cursor.execute('SELECT ConversationID FROM Conversations WHERE UserID = ?', (user_id,))
+     conversation = cursor.fetchone() 
 
-    if not conversation:
-        cursor.execute('INSERT INTO Conversations (UserID) VALUES (?)', (user_id,))
-        conn.commit()
-        conversation_id = cursor.lastrowid
-    else:
-        conversation_id = conversation['ConversationID'] 
-
-    # Save the incoming message
-    cursor.execute('INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
+     if not conversation:
+         cursor.execute('INSERT INTO Conversations (UserID) VALUES (?)', (user_id,))
+         conn.commit()
+         conversation_id = cursor.lastrowid
+     else:
+         conversation_id = conversation['ConversationID']
+     cursor.execute('INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
                    (conversation_id, incoming_msg, False))
-    conn.commit() 
+     conn.commit() 
 
     # Generate AI response
-    ai_response = generate_ai_response(incoming_msg) 
+     ai_response = generate_ai_response(incoming_msg) 
 
     # Save the AI response
-    cursor.execute('INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
+     cursor.execute('INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
                    (conversation_id, ai_response, True))
-    conn.commit() 
+     conn.commit() 
 
     # Send the AI response via SMS
-    send_sms(sender_phone, ai_response) 
+     send_sms(sender_phone, ai_response) 
 
-    conn.close() 
+     conn.close() 
 
     # Respond to Twilio
-    response = MessagingResponse()
-    return str(response) 
+     response = MessagingResponse()
+     return str(response) 
 
 def generate_ai_response(prompt):
     response = openai.Completion.create(

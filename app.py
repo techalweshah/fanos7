@@ -47,18 +47,19 @@ openai.api_key = 'your_openai_api_key'
 # Database setup
 # Define the database file
 DATABASE = 'sms_ai.db'
+def connect_to_db():
+         conn = sqlite3.connect(DATABASE)
+    
+         return conn
+    
 
-def get_db_connection():
-    conn=sqlite3.connect('sms_ai.db')
-    conn.row_factory=sqlite3.Row
-    return conn
 
 @app.route('/sms', methods=['GET'])
 def sms_reply():
     # Get incoming message details
     incoming_msg = request.form.get('Body')
     sender_phone = request.form.get('From')
-    conn = get_db_connection()
+    conn = connect_to_db()
     cursor = conn.cursor()
     cursor.execute('SELECT UserID FROM Users WHERE PhoneNumber = ?', (sender_phone,))
     user = cursor.fetchone()

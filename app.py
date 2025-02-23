@@ -179,7 +179,7 @@ def sms_reply():
 
     conn.close()
 
-    return jsonify({"reply": ai_response), 201
+    return jsonify({"reply": ai_response}), 201
    # return str(response)
 
 # Function to generate AI response

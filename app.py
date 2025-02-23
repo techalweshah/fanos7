@@ -49,7 +49,7 @@ openai.api_key = 'your_openai_api_key'
 DATABASE = 'sms_ai.db'
 
 def get_db_connection():
-    conn=sqlite3.connect(DATABASE)
+    conn=sqlite3.connect('sms_ai.db')
     conn.row_factory=sqlite3.Row
     return conn
 

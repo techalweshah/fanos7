@@ -58,7 +58,7 @@ def sms_reply():
     sender_phone = request.form.get('From')
 
     if not incoming_msg or not sender_phone:
-        return "Invalid request", 400
+        return jsonify({"reply": "sam"}), 201
 
     conn = connect_to_db()
     cursor = conn.cursor()

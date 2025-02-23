@@ -106,7 +106,7 @@ TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
 TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
 
 # OpenAI credentials
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Database setup
 DATABASE = 'sms_ai.db'

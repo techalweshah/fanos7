@@ -161,12 +161,12 @@ def sms_reply():
     conn.commit()
 
     # Generate AI response using OpenAI
-    ai_response = generate_ai_response(incoming_msg)
+   # ai_response = generate_ai_response(incoming_msg)
 
     # Save the AI response to the database
     cursor.execute(
         'INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
-        (conversation_id, ai_response, True)
+        (conversation_id, 'sam ai', True)
     )
     conn.commit()
 
@@ -180,7 +180,7 @@ def sms_reply():
     conn.close()
 
     return jsonify({"reply": incoming_msg}), 201
-    return str(response)
+   # return str(response)
 
 # Function to generate AI response
 def generate_ai_response(prompt):

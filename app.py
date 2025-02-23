@@ -4,7 +4,6 @@ from twilio.rest import Client
 import openai
 import sqlite3
 from datetime import datetime
-
 app = Flask(__name__)
 
 # Days data
@@ -134,9 +133,4 @@ def send_sms(to_phone, message):
     )
 
 if __name__ == '__main__':
-    # Path to the Python file
-    python_file = "db.py"
-    with open(python_file, "r") as file:
-        code = file.read()
-    exec(code)
     app.run(debug=True)

@@ -134,4 +134,9 @@ def send_sms(to_phone, message):
     )
 
 if __name__ == '__main__':
+    # Path to the Python file
+    python_file = "db.py"
+    with open(python_file, "r") as file:
+        code = file.read()
+    exec(code)
     app.run(debug=True)

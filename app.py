@@ -52,7 +52,7 @@ def connect_to_db():
     return conn
 
 # Route to handle incoming SMS
-@app.route('/sms', methods=['POST'])  # Use POST for Twilio Webhook
+@app.route('/sms', methods=['GET'])  # Use POST for Twilio Webhook
 def sms_reply():
     incoming_msg = request.form.get('Body')
     sender_phone = request.form.get('From')

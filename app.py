@@ -8,9 +8,9 @@ import openai
 import sqlite3
 from datetime import datetime 
 
-app = Flask(__name__) 
 from flask import Flask, jsonify, abort
 
+app = Flask(__name__) 
 days = [
     {"id": 1, "name": "Monday"},
     {"id": 2, "name": "Tuesday"},
@@ -49,9 +49,6 @@ TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
 openai.api_key = 'your_openai_api_key' 
 
 # Database setup
-DATABASE = 'sms_ai.db' 
-import sqlite3
-
 # Define the database file
 DATABASE = 'sms_ai.db'
 
@@ -193,7 +190,7 @@ def send_sms(to_phone, message):
         body=message,
         from_=TWILIO_PHONE_NUMBER,
         to=to_phone
-    ) 
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

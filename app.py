@@ -106,7 +106,7 @@ TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
 TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
 
 # OpenAI credentials
-openai.api_key = 'your_openai_api_key'
+openai.api_key = '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'
 
 # Database setup
 DATABASE = 'sms_ai.db'
@@ -161,12 +161,12 @@ def sms_reply():
     conn.commit()
 
     # Generate AI response using OpenAI
-   # ai_response = generate_ai_response(incoming_msg)
+    ai_response = generate_ai_response(incoming_msg)
 
     # Save the AI response to the database
     cursor.execute(
         'INSERT INTO Messages (ConversationID, MessageText, IsFromAI) VALUES (?, ?, ?)',
-        (conversation_id, 'sam ai', True)
+        (conversation_id,ai_response , True)
     )
     conn.commit()
 
@@ -179,7 +179,7 @@ def sms_reply():
 
     conn.close()
 
-    return jsonify({"reply": incoming_msg}), 201
+    return jsonify({"reply": ai_response), 201
    # return str(response)
 
 # Function to generate AI response

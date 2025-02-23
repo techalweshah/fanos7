@@ -52,10 +52,10 @@ DATABASE = 'sms_ai.db'
 
 
 def get_db_connection():
-    print("Database and tables created successfully!")
-    conn = sqlite3.connect(DATABASE)
-    # conn.row_factory = sqlite3.Row
-    return conn 
+      print("Database and tables created successfully!")
+      conn = sqlite3.connect(DATABASE)
+      conn.row_factory = sqlite3.Row
+      return conn
 
 
 @app.route('/sms', methods=['GET'])
